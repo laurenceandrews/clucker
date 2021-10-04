@@ -11,4 +11,7 @@ class User(AbstractUser):
             message='Username must consist of @ followed by at least three alphanumericals'
         )]
     )
-    bio = models.TextField()
+    first_name = models.CharField(max_length=50, blank=False)
+    last_name = models.CharField(max_length=50, blank=False)
+    email = models.EmailField(unique=True, blank=False)
+    bio = models.CharField(max_length=520, blank=True)
