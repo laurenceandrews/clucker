@@ -1,4 +1,5 @@
 """Tests of the log in view."""
+from django.contrib import messages
 from django.test import TestCase
 from django.urls import reverse
 from microblogs.forms import LogInForm
@@ -39,6 +40,9 @@ class LogInViewTestCase(TestCase, LogInTester):
         self.assertTrue(isinstance(form, LogInForm))
         self.assertFalse(form.is_bound)
         self.assertFalse(self._is_logged_in())
+        messages_list = list(response.context['messages'])
+        self.assertEqual(len(messages_list), 1)
+        self.assertEqual(messages_list[0].level, messages.ERROR)
 
     def test_successful_log_in(self):
         form_input = { 'username': '@johndoe', 'password': 'Password123' }
@@ -59,3 +63,6 @@ class LogInViewTestCase(TestCase, LogInTester):
         self.assertTrue(isinstance(form, LogInForm))
         self.assertFalse(form.is_bound)
         self.assertFalse(self._is_logged_in())
+        messages_list = list(response.context['messages'])
+        self.assertEqual(len(messages_list), 1)
+        self.assertEqual(messages_list[0].level, messages.ERROR)
