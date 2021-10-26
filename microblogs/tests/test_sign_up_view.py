@@ -21,11 +21,10 @@ class SignUpViewTestCase(TestCase):
         }
 
     def test_sign_up_url(self):
-        self.assertEqual(reverse('sign_up'), '/sign_up/')
+        self.assertEqual(self.url, '/sign_up/')
 
     def test_get_sign_up(self):
-        url = reverse('sign_up')
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'sign_up.html')
         form = response.context['form']
