@@ -1,10 +1,9 @@
 """Tests of the sign up view."""
 from django.contrib.auth.hashers import check_password
-from django.urls import reverse
 from django.test import TestCase
+from django.urls import reverse
 from microblogs.forms import SignUpForm
 from microblogs.models import User
-from microblogs.views import sign_up
 
 class SignUpViewTestCase(TestCase):
     """Unit tests of the sign up view."""

@@ -1,14 +1,15 @@
 from django.shortcuts import redirect, render
-from .forms import SignUpForm
+from .forms import LogInForm, SignUpForm
 
 def feed(request):
-    return render(request,  'feed.html')
+    return render(request, 'feed.html')
 
 def log_in(request):
-    return render(request,  'log_in.html')
+    form = LogInForm()
+    return render(request, 'log_in.html', {'form': form})
 
 def home(request):
-    return render(request,  'home.html')
+    return render(request, 'home.html')
 
 def sign_up(request):
     if request.method  == 'POST':
