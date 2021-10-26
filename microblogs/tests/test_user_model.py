@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-from .models import User
+from microblogs.models import User
 
 # Unit tests go here
 class UserModelTestCase(TestCase):
@@ -17,7 +17,6 @@ class UserModelTestCase(TestCase):
 
     def test_valid_user(self):
         self.assert_user_is_valid()
-
 
     def test_username_cannot_be_blank(self):
         self.user.username = ''
