@@ -1,11 +1,12 @@
-"""Tests of the sign up view."""
+"""Tests of the log in view."""
 from django.test import TestCase
 from django.urls import reverse
 from microblogs.forms import LogInForm
 from microblogs.models import User
+from .helpers import LogInTester
 
-class LogInViewTestCase(TestCase):
-    """Unit tests of the log in view."""
+class LogInViewTestCase(TestCase, LogInTester):
+    """Tests of the log in view."""
 
     def setUp(self):
         self.url = reverse('log_in')
@@ -45,6 +46,3 @@ class LogInViewTestCase(TestCase):
         response_url = reverse('feed')
         self.assertRedirects(response, response_url, status_code = 302, target_status_code = 200)
         self.assertTemplateUsed(response, 'feed.html')
-
-    def _is_logged_in(self):
-        return '_auth_user_id' in self.client.session.keys()
