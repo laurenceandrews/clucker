@@ -1,10 +1,12 @@
+"""Tests of the sign up form."""
+from django.contrib.auth.hashers import check_password
 from django import forms
 from django.test import TestCase
-from microblogs.models import User
 from microblogs.forms import SignUpForm
-from django.contrib.auth.hashers import check_password
+from microblogs.models import User
 
 class SignUpFormTestCase(TestCase):
+    """Unit tests of the sign up form."""
 
     def setUp(self):
         self.form_input = {
