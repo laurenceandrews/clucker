@@ -1,10 +1,39 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import redirect, render
-from .forms import LogInForm, SignUpForm
+from .forms import LogInForm, SignUpForm, PostForm
+from .models import Post, User
 
 def feed(request):
-    return render(request, 'feed.html')
+    model = Post
+    posts = Post.objects.filter(author = request.user).order_by()
+    form = PostForm()
+    return render(request, 'feed.html', {'posts': posts, 'form': form})
+
+def edit_feed(request):
+    model = PostForm(request.POST)
+    posts = Post.objects.filter(author = request.user).order_by()
+    return render(request,'edit_feed.html', {'posts': posts, 'form': model})
+
+def new_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            posts = Post.objects.all().filter(author = request.user)
+            user = form.save(request.user)
+            return redirect('feed')
+    else:
+        form = PostForm()
+    return render(request, 'new_post.html', {"form": form})
+
+def user_list(request):
+    model = User
+    posts = User.objects.all()
+    return render(request, 'user_list.html', {'users': posts})
+
+def show_user(request):
+    users = get_user_model().objects.get(id=user_id)
+    posts = Post.objects.filter(author_id = user_id).order_by()
 
 def log_in(request):
     if request.method == 'POST':

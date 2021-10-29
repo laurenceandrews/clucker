@@ -1,11 +1,11 @@
 from django import forms
 from django.core.validators import RegexValidator
-from .models import User
-from .models import Post
+from .models import User, Post
+from django.utils import timezone
 
 class LogInForm(forms.Form):
-    username = forms.CharField(label="Username")
-    password = forms.CharField(label="Password", widget = forms.PasswordInput)
+    username = forms.CharField(label = "Username")
+    password = forms.CharField(label = "Password", widget = forms.PasswordInput)
 
 class SignUpForm(forms.ModelForm):
     class Meta:
@@ -42,3 +42,18 @@ class SignUpForm(forms.ModelForm):
             password = self.cleaned_data.get('new_password'),
         )
         return user
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['text']
+        widgets = {'text': forms.Textarea(attrs={'style': "width:100%;"})}
+
+    def save(self, user):
+        super().save(commit=False)
+        post = Post.objects.create(
+            author = user,
+            text = self.cleaned_data.get('text'),
+            created_at = timezone.now()
+        )
+        return post

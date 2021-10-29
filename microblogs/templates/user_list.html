@@ -1,0 +1,15 @@
+<html>
+<head>
+  <title>Feed</title>
+</head>
+<body>
+  <h1>Clucker Users</h1>
+  <ul>
+    {% for User in users %}
+      <li> {{ User.username }} <br>
+    {% endfor %}
+  </ul>
+  <br>
+  <a href="{% url 'home' %}" >Return home</a>
+</body>
+</html>
