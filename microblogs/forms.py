@@ -45,9 +45,13 @@ class SignUpForm(forms.ModelForm):
 
 class PostForm(forms.ModelForm):
     class Meta:
+        """Form options."""
+
         model = Post
         fields = ['text']
-        widgets = {'text': forms.Textarea(attrs={'style': "width:100%;"})}
+        widgets = {
+            'text': forms.Textarea()
+        }
 
     def save(self, user):
         super().save(commit=False)

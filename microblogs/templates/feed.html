@@ -1,26 +1,19 @@
-<html>
-<head>
-  <title>Clucker</title>
-</head>
-<body>
-  <h1>Clucker Feed</h1>
-  <h2>Have your say</h2>
-  <form action = "{%url 'new_post' %}" method = "post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type = "submit" value = "Cluck">
-  </form>
-  <a href="{% url 'new_post' %}" >Or cluck on a separate page</a>
-  <br>
-  <h2>What Everybody's Cluckin'</h2>
-  <ul>
-      {% for post in posts %}
-      <li> {{ post.author }} - {{ post.created_at }}<br/>
-      {{ post.text}} - <a href="{% url 'edit_feed' %}" >Edit Cluck</a> </li>
-
-          <br>
-      {% endfor %}
-  </ul>
-  <a href="{% url 'log_out' %}" >Log out</a>
-</body>
-</html>
+{% extends 'base_content.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-lg-6 col-xl-4">
+      <h3>New post</h3>
+        <form action="{% url 'new_post' %}" method="post">
+        {% csrf_token %}
+        {% include 'partials/bootstrap_form.html' with form=form %}
+        <button type="submit" class="btn btn-primary">Cluck</button>
+      </form>
+    </div>
+    <div class="col-xs-12 col-lg-6 col-xl-8">
+      <h1>Feed</h1>
+      <p><b>UNDER CONSTRUCTION</b>: This page will contain a user-specific feed of clucks.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

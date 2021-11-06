@@ -3,12 +3,12 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import redirect, render
 from .forms import LogInForm, SignUpForm, PostForm
 from .models import Post, User
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseForbidden
 
 def feed(request):
-    model = Post
-    posts = Post.objects.filter(author = request.user).order_by()
     form = PostForm()
-    return render(request, 'feed.html', {'posts': posts, 'form': form})
+    return render(request, 'feed.html', {'form': form})
 
 def edit_feed(request):
     model = PostForm(request.POST)
@@ -17,25 +17,31 @@ def edit_feed(request):
 
 def new_post(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            posts = Post.objects.all().filter(author = request.user)
-            user = form.save(request.user)
-            return redirect('feed')
+        if request.user.is_authenticated:
+            current_user = request.user
+            form = PostForm(request.POST)
+            if form.is_valid():
+                text = form.cleaned_data.get('text')
+                post = Post.objects.create(author=current_user, text=text)
+                return redirect('feed')
+            else:
+                return render(request, 'feed.html', {'form': form})
+        else:
+            return redirect('log_in')
     else:
-        form = PostForm()
-    return render(request, 'new_post.html', {"form": form})
+        return HttpResponseForbidden()
 
 def user_list(request):
-    model = User
-    posts = User.objects.all()
-    return render(request, 'user_list.html', {'users': posts})
+    users = User.objects.all()
+    return render(request, 'user_list.html', {'users': users})
 
 def show_user(request, user_id):
-    model = User
-    posts = User.objects.all()
-    userid = user_list(request)
-    return render(request, 'show_user.html', {'id' : userid})
+    try:
+        user = User.objects.get(id=user_id)
+    except ObjectDoesNotExist:
+        return redirect('user_list')
+    else:
+        return render(request, 'show_user.html', {'user': user})
 
 def log_in(request):
     if request.method == 'POST':

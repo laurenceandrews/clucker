@@ -1,17 +1,17 @@
-<html>
-<head>
-  <title>Feed</title>
-</head>
-<body>
-  <h1>Clucker Users</h1>
-  <ul>
-    {% for user in users %}
-        <p><a href ='{%url 'show_user' user.id%}'></p>
-        {{user.username}}</a>
-        <br>
-    {% endfor %}
-  </ul>
-  <br>
-  <a href="{% url 'home' %}" >Return home</a>
-</body>
-</html>
+{% extends 'base_content.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Users</h1>
+      <table class="table">
+        {% for user in users %}
+          <tr>
+            <td>{{ user.full_name }}</td>
+            <td><a href="{% url 'show_user' user.id %}">{{ user.username }}</a></td>          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

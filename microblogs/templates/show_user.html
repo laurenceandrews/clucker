@@ -1,14 +1,11 @@
-<html>
-<head>
-  <title>Clucker</title>
-</head>
-<body>
-  <h1>User Overview</h1>
-  <h2>About {{user.first_name}}</h2>
-  <p>{{user.bio}}</p>
-  <br>
-  <a href="{% url 'user_list' %}" >Return to user list</a>
-  <br>
-  <a href="{% url 'home' %}" >Return home</a>
-</body>
-</html>
+{% extends 'base_content.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{ user.full_name }}</h1>
+      <p>{{ user.username }}
+    </div>
+  </div>
+</div>
+{% endblock %}
