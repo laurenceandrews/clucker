@@ -31,9 +31,11 @@ def user_list(request):
     posts = User.objects.all()
     return render(request, 'user_list.html', {'users': posts})
 
-def show_user(request):
-    users = get_user_model().objects.get(id=user_id)
-    posts = Post.objects.filter(author_id = user_id).order_by()
+def show_user(request, user_id):
+    model = User
+    posts = User.objects.all()
+    userid = user_list(request)
+    return render(request, 'show_user.html', {'id' : userid})
 
 def log_in(request):
     if request.method == 'POST':

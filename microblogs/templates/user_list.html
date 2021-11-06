@@ -5,8 +5,10 @@
 <body>
   <h1>Clucker Users</h1>
   <ul>
-    {% for User in users %}
-      <li> {{ User.username }} <br>
+    {% for user in users %}
+        <p><a href ='{%url 'show_user' user.id%}'></p>
+        {{user.username}}</a>
+        <br>
     {% endfor %}
   </ul>
   <br>
