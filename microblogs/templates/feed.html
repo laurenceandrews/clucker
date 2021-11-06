@@ -12,7 +12,15 @@
     </div>
     <div class="col-xs-12 col-lg-6 col-xl-8">
       <h1>Feed</h1>
-      <p><b>UNDER CONSTRUCTION</b>: This page will contain a user-specific feed of clucks.</p>
+      <ul>
+            {% for post in posts %}
+            <li>
+              {{ post.author }} - {{ post.created_at }}<br>
+              {{ post.text}} - <a href="{% url 'edit_feed' %}" >Edit Cluck</a>
+            </li>
+            <br>
+            {% endfor %}
+      </ul>
     </div>
   </div>
 </div>

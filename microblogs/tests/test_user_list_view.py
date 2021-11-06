@@ -29,11 +29,3 @@ class UserListTest(TestCase):
                 last_name=f'Last{user_id}',
                 bio=f'Bio {user_id}',
             )
-
-    def test_get_user_list(self):
-        ...
-        for user_id in range(15):
-            ...
-            user = User.objects.get(username=f'@user{user_id}')
-            user_url = reverse('show_user', kwargs={'user_id': user.id})
-            self.assertContains(response, user_url)

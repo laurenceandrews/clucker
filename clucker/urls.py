@@ -26,6 +26,6 @@ urlpatterns = [
     path('sign_up/', views.sign_up, name='sign_up'),
     path('edit_feed/', views.edit_feed, name='edit_feed'),
     path('new_post/', views.new_post, name='new_post'),
-    path('user_list/', views.user_list, name = 'user_list'),
-    path('users/<int:user_id>', views.show_user, name = 'show_user')
+    path('users/', views.user_list, name='user_list'),
+    path('user/<int:user_id>', views.show_user, name='show_user'),
 ]
