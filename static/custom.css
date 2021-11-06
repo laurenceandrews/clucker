@@ -45,13 +45,13 @@ p.cover-text {
 }
 
 .cover-card {
-  background-color: rgba(245, 245, 245, 0.6);
-  max-width: 30rem;
-  padding-top: 30px;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-bottom: 30px;
-  border-radius: 15%;
+  background-color: rgba(245, 245, 245, 0.8);
+  max-width: 100rem;
+  padding-top: 50px;
+  padding-left: 70px;
+  padding-right: 70px;
+  padding-bottom: 50px;
+  border-radius: 2%;
 }
 .cover-card-block {
   opacity: 1
