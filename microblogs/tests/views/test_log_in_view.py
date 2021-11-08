@@ -4,21 +4,16 @@ from django.test import TestCase
 from django.urls import reverse
 from microblogs.forms import LogInForm
 from microblogs.models import User
-from .helpers import LogInTester
+from microblogs.tests.helpers import LogInTester
 
 class LogInViewTestCase(TestCase, LogInTester):
     """Tests of the log in view."""
 
+    fixtures = ['microblogs/tests/fixtures/default_user.json']
+
     def setUp(self):
         self.url = reverse('log_in')
-        self.user = User.objects.create_user('@johndoe',
-            first_name='John',
-            last_name='Doe',
-            email='johndoe@example.org',
-            bio = 'Hello, I am John Doe.',
-            password='Password123',
-            is_active=True
-            )
+        self.user = User.objects.get(username='@johndoe')
 
     def test_log_in_url(self):
         self.assertEqual(self.url, '/log_in/')
