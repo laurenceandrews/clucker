@@ -77,9 +77,11 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
+@login_prohibited
 def home(request):
     return render(request, 'home.html')
 
+@login_prohibited
 def sign_up(request):
     if request.method  == 'POST':
         form = SignUpForm(request.POST)
