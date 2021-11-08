@@ -7,6 +7,14 @@ from .models import Post, User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseForbidden
 
+def login_prohibited(view_function):
+    def modified_view_function(request):
+        if request.user.is_authenticated:
+            return redirect('feed')
+        else:
+            return view_function(request)
+    return modified_view_function
+
 @login_required
 def feed(request):
     form = PostForm()
@@ -47,6 +55,7 @@ def show_user(request, user_id):
     else:
         return render(request, 'show_user.html', {'user': user})
 
+@login_prohibited
 def log_in(request):
     if request.method == 'POST':
         form = LogInForm(request.POST)
